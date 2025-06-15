@@ -1,2 +1,12 @@
-# Website-G-i-G-m-Y-u-Th-ng
-“Gửi Gắm Yêu Thương” là một trang web độc đáo kết hợp giữa giao diện nghệ thuật, hiệu ứng động tinh tế và cảm xúc cá nhân hóa, được thiết kế như một món quà số đầy cảm xúc dành cho người bạn yêu thương.
+Giới thiệu trang web "Gửi Gắm Yêu Thương"
+
+"Gửi Gắm Yêu Thương" là một website được thiết kế như một món quà số đặc biệt, mang tính cá nhân hóa cao và đậm chất cảm xúc. Dự án không chỉ là một sản phẩm công nghệ đơn thuần mà còn là một tác phẩm nghệ thuật số, nơi từng dòng mã đều được viết bằng sự trân trọng và chân thành của người làm ra nó.
+
+Trang web gồm ba phần chính được liên kết chặt chẽ với nhau, tạo thành một hành trình cảm xúc mạch lạc và liền mạch. Mở đầu là một giao diện nhập mã PIN được thiết kế mô phỏng theo màn hình khóa của điện thoại iPhone. Với tông màu hồng tím ấm áp, hiệu ứng gradient chuyển động mượt mà và hiệu ứng trái tim bay lãng mạn, màn hình này đóng vai trò như một "cánh cổng" mở ra thế giới nội tâm phía sau. Người dùng sẽ phải nhập đúng mã PIN bí mật để tiếp tục, tạo nên cảm giác riêng tư và huyền bí. Ngoài ra, người dùng còn có thể thay đổi ảnh đại diện bằng cách tải ảnh từ thiết bị hoặc nhập đường dẫn ảnh trực tuyến, giúp tăng tính cá nhân hóa của trải nghiệm.
+
+Sau khi nhập đúng mã PIN, trang web chuyển sang phần thứ hai, đó là một bức thư tình được trình bày trong khung thư thiết kế như một tấm thiệp cao cấp. Nền giấy màu kem nhẹ nhàng, viền vàng ánh kim, kết hợp với hiệu ứng đổ bóng và font chữ viết tay, tất cả tạo nên cảm giác sang trọng và tinh tế. Nội dung thư không hiển thị ngay lập tức mà hiện lên từng dòng một, như thể người viết đang đánh máy trực tiếp gửi tới người nhận. Những dòng chữ này không chỉ truyền tải thông điệp tình yêu, mà còn mang lại cảm giác gần gũi, chân thành và sâu lắng. Khi thư kết thúc, phần chữ ký "Yêu em, HyPer" xuất hiện một cách nhẹ nhàng, kết thúc phần nội dung bằng một điểm nhấn tinh tế. Sau một khoảng dừng, trang web tự động chuyển sang phần cuối.
+
+Trang cuối cùng là nơi lưu giữ kỷ niệm dưới dạng hình ảnh, được trình bày dưới hình thức một bộ sưu tập ảnh xoay vòng 3D. Các bức ảnh được bố trí xung quanh một trục xoay 360 độ, tạo hiệu ứng như một vòng tròn ký ức đang quay quanh người xem. Nền trang là gradient chuyển động liên tục, kết hợp âm nhạc nhẹ nhàng để tăng cảm xúc. Người dùng có thể tương tác với các nút điều khiển như phát pháo hoa, tạo mưa trái tim, tạm dừng xoay hoặc quay lại màn hình nhập mã PIN. Mỗi nút tương tác đều mang đến một hiệu ứng thị giác sinh động, giúp trải nghiệm trở nên phong phú và đa chiều hơn.
+
+Tổng thể, "Gửi Gắm Yêu Thương" là một dự án kết hợp hoàn hảo giữa công nghệ, thiết kế và cảm xúc. Từ giao diện cho đến hiệu ứng, từ nội dung đến cách truyền tải, mọi chi tiết đều được xây dựng để thể hiện tình cảm một cách sáng tạo và sâu sắc. Đây là một minh chứng cho việc công nghệ hoàn toàn có thể là phương tiện truyền tải tình yêu, sự quan tâm và những điều thiêng liêng nhất trong cuộc sống.
+
