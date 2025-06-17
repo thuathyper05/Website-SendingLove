@@ -1,0 +1,807 @@
+<!--
+    WEBTISE SENDING LOVE 
+    Tiktok: thuathyper.05
+    Email: thuatnguyen1204@gmail.com
+-->
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Gửi Gắm Yêu Thương</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body, html {
+      width: 100%; height: 100%;
+      font-family: 'Segoe UI', sans-serif;
+      background: #000; color: #fff;
+      overflow: hidden;
+    }
+
+    .screen {
+      display: none; width: 100%; height: 100vh;
+      justify-content: center; align-items: center;
+      position: relative; flex-direction: column;
+    }
+    .screen.active { display: flex; }
+
+    /* SCREEN 1 - PIN ENTRY */
+    #screen1 {
+      background: linear-gradient(135deg, #1b5ec4, #0c86bf, #1b568d);
+      padding: 2rem;
+    }
+
+    .phone-container {
+      display: flex; align-items: center; justify-content: center;
+      gap: 3rem; width: 100%; max-width: 1000px;
+    }
+
+    .profile-section {
+      display: flex; flex-direction: column; align-items: center; gap: 1rem;
+    }
+
+    .profile-pic {
+      width: 300px; height: 380px; 
+      border-radius: 20px; 
+      box-shadow: 
+        0 20px 50px rgba(0,0,0,0.4),
+        0 0 30px rgba(255,255,255,0.3),
+        inset 0 0 20px rgba(255,255,255,0.1);
+      overflow: hidden;
+      position: relative;
+      animation: avatarFloat 3s ease-in-out infinite;
+      background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #f7dc6f);
+      background-size: 400% 400%;
+      animation: avatarFloat 3s ease-in-out infinite, gradientShift 8s ease infinite;
+    }
+
+    .profile-pic img {
+      width: 100%; 
+      height: 100%; 
+      object-fit: cover;
+      object-position: center;
+      border-radius: 20px;
+      transition: transform 0.5s ease;
+    }
+
+    .profile-pic::before {
+      content: '';
+      position: absolute;
+      top: -2px; left: -2px; right: -2px; bottom: -2px;
+      background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #f7dc6f, #ff6b6b);
+      background-size: 400% 400%;
+      border-radius: 22px;
+      z-index: -1;
+      animation: gradientShift 3s ease infinite;
+    }
+
+    .profile-pic::after {
+      content: '✨';
+      position: absolute;
+      top: -10px; right: -10px;
+      font-size: 1.5rem;
+      animation: sparkle 2s ease-in-out infinite;
+      z-index: 2;
+    }
+
+    @keyframes avatarFloat {
+      0%, 100% { 
+        transform: translateY(0) rotate(0deg) scale(1);
+        box-shadow: 
+          0 20px 50px rgba(0,0,0,0.4),
+          0 0 30px rgba(255,255,255,0.3);
+      }
+      50% { 
+        transform: translateY(-10px) rotate(2deg) scale(1.02);
+        box-shadow: 
+          0 30px 60px rgba(0,0,0,0.5),
+          0 0 40px rgba(255,255,255,0.4);
+      }
+    }
+
+    @keyframes sparkle {
+      0%, 100% { 
+        opacity: 0.5; 
+        transform: scale(1) rotate(0deg);
+      }
+      50% { 
+        opacity: 1; 
+        transform: scale(1.3) rotate(180deg);
+      }
+    }
+
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .profile-pic:hover {
+      transform: scale(1.05) rotate(5deg);
+      transition: transform 0.3s ease;
+    }
+
+    .profile-pic:hover img {
+      transform: scale(1.1);
+    }
+
+    .avatar-glow {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      border-radius: 20px;
+      background: radial-gradient(circle at 50% 50%, rgba(255,255,255,0.2), transparent 70%);
+      animation: glowPulse 2s ease-in-out infinite alternate;
+      pointer-events: none;
+    }
+
+    @keyframes glowPulse {
+      0% { opacity: 0.3; }
+      100% { opacity: 0.7; }
+    }
+
+    .keypad-section {
+      display: flex; flex-direction: column; align-items: center; gap: 1.5rem;
+    }
+
+    .keypad-title {
+      font-size: 1.8rem; font-weight: bold; color: #fff;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+      animation: titlePulse 2s ease-in-out infinite;
+    }
+
+    @keyframes titlePulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+
+    .pin-display {
+      background: #fff; color: #333; padding: 1rem 2rem;
+      border-radius: 25px; font-size: 2rem; font-weight: bold;
+      min-width: 200px; text-align: center;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+      letter-spacing: 0.5rem;
+    }
+
+    .keypad {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 15px; margin-top: 1rem;
+    }
+
+    .key {
+      width: 70px; height: 70px; background: #fff; color: #333;
+      border: none; border-radius: 15px; font-size: 1.8rem; font-weight: bold;
+      cursor: pointer; transition: all 0.2s;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+      display: flex; align-items: center; justify-content: center;
+    }
+
+    .key:hover { transform: scale(1.05); background: #f0f0f0; }
+    .key:active { transform: scale(0.95); }
+    .key.special { background: #ff69b4; color: #fff; font-size: 1.5rem; }
+    .key.special:hover { background: #ff1493; }
+
+    .floating-heart {
+      position: absolute; font-size: 2rem;
+      color: rgba(255,255,255,0.7);
+      animation: floatHeart 4s linear infinite;
+      pointer-events: none;
+    }
+
+    @keyframes floatHeart {
+      0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+      10% { opacity: 1; }
+      90% { opacity: 1; }
+      100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
+    }
+
+    /* SCREEN 2 - LETTER */
+    #screen2 {
+      background: linear-gradient(135deg, #2c1810, #8b4513, #d2b48c);
+      position: relative;
+    }
+
+    .letter-container {
+      position: relative;
+      width: 600px; height: 800px;
+      background: linear-gradient(145deg, #fefcf8, #f8f6f0);
+      border-radius: 20px;
+      box-shadow:
+        0 30px 60px rgba(0,0,0,0.4),
+        inset 0 1px 0 rgba(255,255,255,0.8);
+      padding: 60px 50px;
+      transform: perspective(1000px) rotateX(5deg);
+      animation: letterEntrance 2s ease-out;
+    }
+
+    @keyframes letterEntrance {
+      0% {
+        opacity: 0;
+        transform: perspective(1000px) rotateX(90deg) translateY(100px);
+      }
+      100% {
+        opacity: 1;
+        transform: perspective(1000px) rotateX(5deg) translateY(0);
+      }
+    }
+
+    .letter-header {
+      text-align: center; margin-bottom: 40px;
+      position: relative;
+    }
+
+    .letter-header::before {
+      content: "💌";
+      font-size: 3rem;
+      display: block;
+      margin-bottom: 15px;
+      animation: heartbeat 2s ease-in-out infinite;
+    }
+
+    @keyframes heartbeat {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+    }
+
+    .letter-title {
+      font-family: 'Brush Script MT', cursive;
+      font-size: 2.2rem;
+      color: #8b4513;
+      margin-bottom: 10px;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+    }
+
+    .letter-date {
+      font-size: 1rem;
+      color: #666;
+      font-style: italic;
+    }
+
+    .letter-body {
+      font-family: 'Times New Roman', serif;
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: #2c1810;
+      text-align: justify;
+      position: relative;
+    }
+
+    .typed-line {
+      opacity: 0;
+      transform: translateX(-20px);
+      animation: slideIn 0.8s ease-out forwards;
+      margin-bottom: 12px;
+    }
+
+    @keyframes slideIn {
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    .letter-signature {
+      text-align: right;
+      margin-top: 40px;
+      font-family: 'Brush Script MT', cursive;
+      font-size: 1.4rem;
+      color: #8b4513;
+      padding-right: 20px;
+    }
+
+    .decorative-border {
+      position: absolute;
+      top: 20px; left: 20px; right: 20px; bottom: 20px;
+      border: 2px solid #d4af37;
+      border-radius: 15px;
+      pointer-events: none;
+      opacity: 0.3;
+    }
+
+    .ambient-heart {
+      position: absolute;
+      font-size: 1.5rem;
+      color: rgba(255,192,203,0.3);
+      animation: ambientFloat 6s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    @keyframes ambientFloat {
+      0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0.3; }
+      50% { transform: translateY(-20px) rotate(180deg); opacity: 0.7; }
+    }
+
+    /* SCREEN 3 - 3D GALLERY BIGGER AND UPDATED */
+    #screen3 {
+      background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+      background-size: 400% 400%;
+      animation: gradientShift 15s ease infinite;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .particles {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .fireworks {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      pointer-events: none;
+      z-index: 5;
+    }
+
+    .gallery-screen {
+      text-align: center;
+      padding: 20px;
+      position: relative;
+      z-index: 10;
+      width: 100%;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .screen3-title {
+      font-size: clamp(2rem, 6vw, 5rem);
+      font-weight: bold;
+      text-shadow:
+        0 0 15px #fff,
+        0 0 25px #ff0,
+        0 0 50px #f0f,
+        0 0 100px #0ff;
+      margin: 30px 0 20px 0;
+      background: linear-gradient(45deg, #ff6b6b, #ffd93d, #6bcf7f, #4ecdc4, #45b7d1);
+      background-size: 400% 400%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: titlePulse 2s ease-in-out infinite alternate, gradientShift 3s ease infinite;
+      user-select: none;
+    }
+
+    .gallery-container {
+      width: 700px;
+      height: 630px;
+      perspective: 1800px;
+      margin: 0 auto 40px auto;
+    }
+
+    .gallery {
+      width: 700px;
+      height: 630px;
+      position: relative;
+      margin: 0 auto;
+      transform-style: preserve-3d;
+      animation: rotateCarousel 20s linear infinite;
+      /* Tilt it on X axis */
+      transform-origin: center center;
+      transform: rotateX(-20deg) rotateY(0deg);
+      cursor: default;
+    }
+
+    @keyframes rotateCarousel {
+      0% { transform: rotateX(-20deg) rotateY(0deg); }
+      100% { transform: rotateX(-20deg) rotateY(360deg); }
+    }
+
+    .photo {
+      position: absolute;
+      width: 240px;
+      height: 360px;
+      border-radius: 20px;
+      box-shadow:
+        0 20px 50px rgba(0, 0, 0, 0.6),
+        0 0 30px rgba(255, 255, 255, 0.4);
+      top: 50%;
+      left: 50%;
+      margin-left: -120px;
+      margin-top: -180px;
+      border: 5px solid rgba(255, 255, 255, 0.85);
+      overflow: hidden;
+      background: linear-gradient(45deg, #ff9a9e, #fecfef);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      user-select: none;
+    }
+
+    .photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 18px;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    .photo.no-image {
+      /* Gradient backgrounds for variety */
+      background: linear-gradient(45deg, #ff9a9e, #fecfef);
+    }
+
+    /* Distribute 10 photos evenly spaced on circle with bigger radius */
+    .photo:nth-child(1)  { transform: rotateY(0deg)    translateZ(500px); }
+    .photo:nth-child(2)  { transform: rotateY(36deg)   translateZ(500px); }
+    .photo:nth-child(3)  { transform: rotateY(72deg)   translateZ(500px); }
+    .photo:nth-child(4)  { transform: rotateY(108deg)  translateZ(500px); }
+    .photo:nth-child(5)  { transform: rotateY(144deg)  translateZ(500px); }
+    .photo:nth-child(6)  { transform: rotateY(180deg)  translateZ(500px); }
+    .photo:nth-child(7)  { transform: rotateY(216deg)  translateZ(500px); }
+    .photo:nth-child(8)  { transform: rotateY(252deg)  translateZ(500px); }
+    .photo:nth-child(9)  { transform: rotateY(288deg)  translateZ(500px); }
+    .photo:nth-child(10) { transform: rotateY(324deg)  translateZ(500px); }
+
+    /* Different gradient backgrounds if no image */
+    .photo:nth-child(2).no-image { background: linear-gradient(45deg, #a8edea, #fed6e3); }
+    .photo:nth-child(3).no-image { background: linear-gradient(45deg, #ffd89b, #19547b); }
+    .photo:nth-child(4).no-image { background: linear-gradient(45deg, #667eea, #764ba2); }
+    .photo:nth-child(5).no-image { background: linear-gradient(45deg, #f093fb, #f5576c); }
+    .photo:nth-child(6).no-image { background: linear-gradient(45deg, #ffecd2, #fcb69f); }
+    .photo:nth-child(7).no-image { background: linear-gradient(45deg, #a8caba, #5d4e75); }
+    .photo:nth-child(8).no-image { background: linear-gradient(45deg, #fdbb2d, #22c1c3); }
+    .photo:nth-child(9).no-image { background: linear-gradient(45deg, #ee9ca7, #ffdde1); }
+    .photo:nth-child(10).no-image { background: linear-gradient(45deg, #89f7fe, #66a6ff); }
+
+    .photo:hover {
+      transform: scale(1.1) translateZ(50px);
+      box-shadow: 0 30px 70px rgba(0, 0, 0, 0.8), 0 0 40px rgba(255, 255, 255, 0.6);
+      z-index: 1000;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .controls {
+      margin: 120px 0;
+      display: flex; justify-content: center;
+      gap: 20px; flex-wrap: wrap;
+      user-select: none;
+    }
+
+    .btn {
+      padding: 12px 24px;
+      border: none; border-radius: 25px;
+      background: linear-gradient(45deg, #667eea, #764ba2);
+      color: white; font-size: 1rem; font-weight: bold;
+      cursor: pointer; transition: all 0.3s ease;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      user-select: none;
+    }
+
+    .btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+    }
+
+    .firework {
+      position: absolute;
+      width: 4px; height: 4px;
+      border-radius: 50%;
+      animation: firework 1s ease-out forwards;
+    }
+
+    @keyframes firework {
+      0% { transform: scale(1); opacity: 1; }
+      100% { transform: scale(20); opacity: 0; }
+    }
+
+    .heart {
+      position: absolute;
+      color: #ff69b4; font-size: 20px;
+      animation: heartFloat 3s ease-out forwards;
+      pointer-events: none; z-index: 3;
+    }
+
+    @keyframes heartFloat {
+      0% { opacity: 1; transform: translateY(0) scale(1); }
+      100% { opacity: 0; transform: translateY(-100px) scale(1.5); }
+    }
+
+    /* Responsive for smaller screens */
+    @media (max-width: 768px) {
+      .phone-container { flex-direction: column; gap: 2rem; }
+      .profile-pic { width: 200px; height: 250px; }
+      .keypad-title { font-size: 1.5rem; }
+      .pin-display { font-size: 1.5rem; min-width: 150px; }
+      .key { width: 60px; height: 60px; font-size: 1.5rem; }
+      
+      .letter-container {
+        width: 90vw; height: 80vh;
+        padding: 40px 30px;
+      }
+      .letter-title { font-size: 1.8rem; }
+      .letter-body { font-size: 1rem; }
+
+      .gallery-container {
+        width: 400px;
+        height: 360px;
+      }
+      
+      .gallery {
+        width: 400px;
+        height: 360px;
+      }
+
+      .photo {
+        width: 140px;
+        height: 210px;
+        margin-left: -70px;
+        margin-top: -105px;
+        border-width: 4px;
+        border-radius: 16px;
+      }
+      
+      .controls {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- SCREEN 1: PIN ENTRY -->
+  <section id="screen1" class="screen active">
+    <div class="phone-container">
+      <div class="profile-section">
+        <div class="profile-pic">
+          <img src="NHẬP ẢNH AVT TẠI ĐÂY!" alt="Profile Picture" />
+          <div class="avatar-glow"></div>
+        </div>
+      </div>
+      <div class="keypad-section">
+        <div class="keypad-title">NHẬP MÃ PIN</div>
+        <div class="pin-display" id="pinDisplay">****</div>
+        <div class="keypad">
+          <button class="key" onclick="addDigit('1')">1</button>
+          <button class="key" onclick="addDigit('2')">2</button>
+          <button class="key" onclick="addDigit('3')">3</button>
+          <button class="key" onclick="addDigit('4')">4</button>
+          <button class="key" onclick="addDigit('5')">5</button>
+          <button class="key" onclick="addDigit('6')">6</button>
+          <button class="key" onclick="addDigit('7')">7</button>
+          <button class="key" onclick="addDigit('8')">8</button>
+          <button class="key" onclick="addDigit('9')">9</button>
+          <button class="key special" onclick="clearPin()">×</button>
+          <button class="key" onclick="addDigit('0')">0</button>
+          <button class="key special" onclick="checkPIN()">✓</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SCREEN 2: LETTER -->
+  <section id="screen2" class="screen">
+    <div class="letter-container">
+      <div class="decorative-border"></div>
+      <div class="letter-header">
+        <div class="letter-title">Lá Thư Tâm Tình</div>
+        <div class="letter-date">17/06/2025</div>
+      </div>
+      <div class="letter-body" id="letterBody"></div>
+      <div class="letter-signature">
+        <div style="opacity: 0;" id="signature">
+          Ký tên,<br />
+          HYPER
+        </div>
+      </div>
+    </div>
+    <footer style="position: absolute; bottom: 10px; right: 10px; font-size: 0.8rem;">
+  @code by Nguyễn Văn Thuật – thuathyper05
+</footer>
+  </section>
+
+  <!-- SCREEN 3: 3D GALLERY -->
+<section id="screen3" class="screen">
+  <audio id="backgroundMusic" autoplay loop>
+    <source src="THÊM NHẠC NỀN WEBTISE TẠI ĐÂY!" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
+  <div class="particles"></div>
+  <div class="fireworks"></div>
+  <div class="gallery-screen">
+    <h1 class="screen3-title">🎉LOVE GALLERY🎉</h1>
+    <div class="gallery-container">
+      <div class="gallery" id="gallery">
+        <div class="photo" tabindex="0" aria-label="Ảnh 1">
+          <img src="NHẬP ẢNH TẠI ĐÂY!" alt="Ảnh 1" />
+        </div>
+        <div class="photo" tabindex="0" aria-label="Ảnh 2">
+          <img src="NHẬP ẢNH TẠI ĐÂY!" alt="Ảnh 2" />
+        </div>
+        <div class="photo" tabindex="0" aria-label="Ảnh 3">
+          <img src="NHẬP ẢNH TẠI ĐÂY!" alt="Ảnh 3" />
+        </div>
+        <div class="photo" tabindex="0" aria-label="Ảnh 4">
+          <img src="NHẬP ẢNH TẠI ĐÂY!" alt="Ảnh 4" />
+        </div>
+        <div class="photo" tabindex="0" aria-label="Ảnh 5">
+          <img src="NHẬP ẢNH TẠI ĐÂY!" alt="Ảnh 5" />
+        </div>
+        <div class="photo" tabindex="0" aria-label="Ảnh 6">
+          <img src="NHẬP ẢNH TẠI ĐÂY!" alt="Ảnh 6" />
+        </div>
+        <div class="photo" tabindex="0" aria-label="Ảnh 7">
+          <img src="NHẬP ẢNH TẠI ĐÂY!" alt="Ảnh 7" />
+        </div>
+        <div class="photo" tabindex="0" aria-label="Ảnh 8">
+          <img src="NHẬP ẢNH TẠI ĐÂY!" alt="Ảnh 8" />
+        </div>
+        <div class="photo" tabindex="0" aria-label="Ảnh 9">
+          <img src="NHẬP ẢNH TẠI ĐÂY!" alt="Ảnh 9" />
+        </div>
+        <div class="photo" tabindex="0" aria-label="Ảnh 10">
+          <img src="NHẬP ẢNH TẠI ĐÂY!" alt="Ảnh 10" />
+        </div>
+      </div>
+    </div>
+    <div class="controls">
+      <button class="btn" onclick="playFireworks()">🎆 Pháo hoa</button>
+      <button class="btn" onclick="toggleRotation()">⏯️ Tạm dừng</button>
+      <button class="btn" onclick="showHearts()">💕 Trái tim</button>
+      <button class="btn" onclick="goToScreen1()">🔄 Về đầu</button>
+    </div>
+  </div>
+</section>
+
+  <script>
+    let currentPin = '';
+    // ĐỔI MÃ PIN TẠI ĐÂY
+    const correctPin = '1204';
+
+    const letterLines = [
+      "Gửi chính tôi – ở một ngày nào đó trong tương lai!",
+        "",
+        "Viết vài dòng để nhắc nhở bản thân rằng: không sao nếu hôm nay chưa hoàn hảo.",
+        "",
+        "Cảm ơn vì đã kiên trì bước tiếp, dù có thể đã từng muốn bỏ cuộc.",
+        "Mỗi chặng đường đều có ý nghĩa riêng – dù là thành công hay thử thách.",
+        "",
+        "Tôi không mong bạn trở thành ai đó vĩ đại,",
+        "chỉ mong bạn vẫn giữ được sự chân thành và lòng can đảm ban đầu.",
+        "",
+        "Nếu một ngày thấy mỏi mệt,",
+        "hãy cho phép mình chậm lại, nghỉ một chút… rồi tiếp tục."
+    ];
+
+    // PIN functions
+    function addDigit(digit) {
+      if (currentPin.length < 4) {
+        currentPin += digit;
+        updatePinDisplay();
+      }
+    }
+
+    function clearPin() {
+      currentPin = '';
+      updatePinDisplay();
+    }
+
+    function updatePinDisplay() {
+      const display = document.getElementById('pinDisplay');
+      display.textContent = currentPin.length === 0 ? '****' : currentPin.padEnd(4, '*');
+    }
+
+    function checkPIN() {
+      if (currentPin === correctPin) {
+        goToScreen2();
+      } else if (currentPin.length === 4) {
+        const display = document.getElementById('pinDisplay');
+        display.style.animation = 'shake 0.5s';
+        setTimeout(() => {
+          display.style.animation = '';
+          clearPin();
+        }, 500);
+      }
+    }
+
+    // Screen navigation
+    function goToScreen2() {
+      document.getElementById('screen1').classList.remove('active');
+      document.getElementById('screen2').classList.add('active');
+      setTimeout(startLetterAnimation, 500);
+    }
+
+    function goToScreen3() {
+      document.getElementById('screen2').classList.remove('active');
+      document.getElementById('screen3').classList.add('active');
+    }
+
+    function goToScreen1() {
+      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+      document.getElementById('screen1').classList.add('active');
+      currentPin = '';
+      updatePinDisplay();
+    }
+
+    // Letter animation with auto screen 3 transition
+    function startLetterAnimation() {
+      createAmbientHearts();
+
+      const letterBody = document.getElementById('letterBody');
+      letterBody.innerHTML = ''; // Clear previous content
+
+      letterLines.forEach((line, index) => {
+        setTimeout(() => {
+          const lineDiv = document.createElement('div');
+          lineDiv.className = 'typed-line';
+          lineDiv.textContent = line;
+          letterBody.appendChild(lineDiv);
+
+          if (index === letterLines.length - 1) {
+            setTimeout(() => {
+              const signature = document.getElementById('signature');
+              signature.style.opacity = '1';
+              signature.style.animation = 'slideIn 1s ease-out';
+              // Auto go to screen 3 after 2 seconds
+              setTimeout(() => {
+                goToScreen3();
+              }, 2500);
+            }, 800);
+          }
+        }, index * 400);
+      });
+    }
+
+    // Ambient hearts
+    function createAmbientHearts() {
+      const container = document.querySelector('#screen2');
+      const hearts = ['💕', '💖', '💗', '💝'];
+
+      // Clear existing hearts
+      container.querySelectorAll('.ambient-heart').forEach(h => h.remove());
+
+      for (let i = 0; i < 12; i++) {
+        setTimeout(() => {
+          const heart = document.createElement('div');
+          heart.className = 'ambient-heart';
+          heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+          heart.style.left = Math.random() * 100 + 'vw';
+          heart.style.animationDuration = Math.random() * 3 + 3 + 's';
+          container.appendChild(heart);
+        }, i * 500);
+      }
+    }
+
+    // Fireworks
+    function playFireworks() {
+      const fireworksContainer = document.querySelector('.fireworks');
+      for (let i = 0; i < 10; i++) {
+        const firework = document.createElement('div');
+        firework.className = 'firework';
+        firework.style.left = Math.random() * 100 + 'vw';
+        firework.style.top = Math.random() * 100 + 'vh';
+        firework.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`;
+        fireworksContainer.appendChild(firework);
+        setTimeout(() => {
+          firework.remove();
+        }, 1000);
+      }
+    }
+
+    // Toggle gallery rotation
+    function toggleRotation() {
+      const gallery = document.getElementById('gallery');
+      if (gallery.style.animationPlayState === 'paused') {
+        gallery.style.animationPlayState = 'running';
+      } else {
+        gallery.style.animationPlayState = 'paused';
+      }
+    }
+
+    // Show hearts
+    function toggleUrlInput() {
+      const urlInput = document.getElementById('urlInput');
+      if (urlInput.style.display === 'block') {
+        urlInput.style.display = 'none';
+        urlInput.value = '';
+      } else {
+        urlInput.style.display = 'block';
+        urlInput.focus();
+      }
+    }
+  </script>
+</body>
+</html>
